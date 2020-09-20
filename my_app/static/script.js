@@ -9,7 +9,7 @@ window.onload = function() {
 	        console.log(food);
 
 	        const Http = new XMLHttpRequest();
-			const url = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + food + '&number=3&apiKey=affe3aeb37514722800bdf12f318c326';
+			const url = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + food + '&number=3&apiKey=4ff7174659c74b19b2cf2a3e9662d4e5';
 			Http.open("GET", url);
 			Http.send();
 

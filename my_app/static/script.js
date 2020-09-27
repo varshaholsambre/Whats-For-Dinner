@@ -2,21 +2,25 @@ window.onload = function() {
 	var food;
 	var json;
 	let recipes;
+	var json2;
+	let urls1;
+	let urls2;
+	let urls3;
+	var json3;
+	var json4;
 	document.getElementById("ingredients")
     .addEventListener("keyup", function(event) {
 	    if (event.keyCode === 13) {
 	        food = document.getElementById("ingredients").value;
-	        console.log(food);
 
 	        const Http = new XMLHttpRequest();
-			const url = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + food + '&number=3&ranking=2&ignorePantry=true&apiKey=4ff7174659c74b19b2cf2a3e9662d4e5';
+			const url = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=" + food + "&number=3&ranking=2&ignorePantry=true&apiKey=d062cf385d574e1ba7337417f5de1d4d";
 			Http.open("GET", url);
 			Http.send();
 
 			Http.onreadystatechange = (e) => {
 			  json = Http.responseText;
 			  recipes = JSON.parse(json);
-			  console.log(recipes[0].title);
 
 			  var cards = document.getElementById("cards");
 			  cards.style.visibility = "visible";
@@ -95,9 +99,43 @@ window.onload = function() {
 			  document.getElementById("thirdLikes").innerHTML = recipes[2].likes;
 			  document.getElementById("usedIngredients3").innerHTML = "Used: " + used3.substring(0, used3.length - 2);
 			  document.getElementById("missedIngredients3").innerHTML = "Missing: " + missing3.substring(0, missing3.length - 2);
+
+			  const Http2 = new XMLHttpRequest();
+			  const url2 = "https://api.spoonacular.com/recipes/" + recipes[0].id + "/information?apiKey=d062cf385d574e1ba7337417f5de1d4d";
+			  Http2.open("GET", url2);
+			  Http2.send();
+
+			  Http2.onreadystatechange = (e) => {
+				  json2 = Http2.responseText;
+				  urls1 = JSON.parse(json2);
+
+				  document.getElementById("firstId").href = urls1.sourceUrl;
+			  }
+
+			  const Http3 = new XMLHttpRequest();
+			  const url3 = "https://api.spoonacular.com/recipes/" + recipes[1].id + "/information?apiKey=d062cf385d574e1ba7337417f5de1d4d";
+			  Http3.open("GET", url3);
+			  Http3.send();
+
+			  Http3.onreadystatechange = (e) => {
+				  json3 = Http3.responseText;
+				  urls2 = JSON.parse(json3);
+
+				  document.getElementById("secondId").href = urls2.sourceUrl;
+			  }
+
+			  const Http4 = new XMLHttpRequest();
+			  const url4 = "https://api.spoonacular.com/recipes/" + recipes[2].id + "/information?apiKey=d062cf385d574e1ba7337417f5de1d4d";
+			  Http4.open("GET", url4);
+			  Http4.send();
+
+			  Http4.onreadystatechange = (e) => {
+				  json4 = Http4.responseText;
+				  urls3 = JSON.parse(json4);
+
+				  document.getElementById("thirdId").href = urls3.sourceUrl;
+			  }
 			}
-
 	    }
-
     });
 }
